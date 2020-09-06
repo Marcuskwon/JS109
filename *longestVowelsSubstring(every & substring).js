@@ -64,4 +64,3 @@ console.log(solve("cuboideonavicuare"))// === 2);
 console.log(solve("chrononhotonthuooaos"))// === 5);
 console.log(solve("codewarriors"))// === 2);
 
-

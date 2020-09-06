@@ -43,7 +43,7 @@ function scramble(str1, str2) {
   let letterLeft = str1;
   for(let i = 0; i < str2.length; i ++) {
     if(letterLeft.includes(str2[i])) {
-      letterLeft = letterLeft.replace(str2[i], '');
+      letterLeft = letterLeft.replace(str2[i], ''); // this can be replaced with splice on array 
     } else {
       return false;
   }

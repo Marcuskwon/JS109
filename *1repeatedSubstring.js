@@ -29,41 +29,36 @@ only english lowercase letters
 
 
 algo
-loop the input string
 
-create substrings of each element to the last element
-with each substring, loop again
- add that substring repeatedly 
- see if the repeated substring is the same as the input string
- if yes-> return true
- break the loop until the length of the repeated string is same or bigger than input string
- also break the loop if the substring'length is smaller than 0
-return false
+for each letter without the first letter,
+set a variable 'substring' and assign an empty string to it
+ create a substring that starts with the first letter
+ for each substring, create a loop again
+ add the substring n times until can create 'str'
+ if yes return true
+ 
+ 
 
 
 */
 
-function repeatedSubstringPatter(string) {
-  for(let i = 0; i < string.length; i++) {
-    for(let j = 0; j < string.length; j++) {
+function repeatedSubstringPatter(str) {
+  for (let idx = 1; idx <= str.length; idx++) { //idx need to increase to length so we can capture the last letter
+    let substring = str.slice(0, idx);
+    if (substring === str) break; //if the substring is equal to str. that means we cannot push multiple times
+    let multiSubstring = '';
+    
+    while (true) {
+      multiSubstring = multiSubstring + substring;
       
-      let substring = string.slice(i, j + 1);
-      let repeatedSubstring = substring;
-
-      while (true) {
-        repeatedSubstring = repeatedSubstring + substring;
-        if (repeatedSubstring === string) {
-          return true;
-        }
-        if (repeatedSubstring.length >= string.length || repeatedSubstring.length === 0) {
-          break;
-        }
+      if (multiSubstring === str) return true;
+      if (multiSubstring.length > str.length) break;
     }
   }
-}
-return false;
-}
+  return false;
 
+  
+}
 
 console.log(repeatedSubstringPatter("aaaa") === true);
 console.log(repeatedSubstringPatter("aba") === false);

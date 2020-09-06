@@ -46,7 +46,7 @@ function commonChars(array) {
     if (array.every(element => element.includes(testingLetters[i]))) {
         sharedLetters.push(testingLetters[i]);
         array = array.map(ele => ele.replace(testingLetters[i], '')); 
-        //reassigning array doesn't do anything with testingLetters becuase 'lestingLetters' is initialized to a value
+        //reassigning array doesn't do anything with testingLetters becuase 'testingLetters' is initialized to a value
       }
     }
   return sharedLetters;  
