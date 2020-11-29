@@ -1,67 +1,95 @@
-/*
-The vowel substrings in the word codewarriors are o,e,a,io. 
-The longest of these has a length of 2. 
-Given a lowercase string that has alphabetic characters only 
-(both vowels and consonants) and no spaces, 
-return the length of the longest vowel substring. Vowels are any of aeiou.
-
-/*
-
-problem
-take in a string that find the longest substring that contains only vowels
-return the length of the substring
-
-rule
-input will be only lowercase english letter
-
-input string
-output number
-
-algo
-take in a string 'str'
-set a variable 'vowelsSubstring' and set it to an emptry array
-loop 'str'
-for each element,
- loop again find a substring that starts with that element
- if substring only includes vowels, put it to vowelsSubstring
-
-after loop,
-sort vowelsSubstring by length in a descending order
-return the first element of it
-  
 
 
-*/
-
-//using substring, and manually see if all letters are vowels
-function solve(str) {
-  let vowelsSubstring = [];
-  for (let idx = 0; idx < str.length; idx++) {
-    for (let idx2 = idx + 1; idx2 <= str.length; idx2++) {
-     let substring = str.slice(idx, idx2);
-     if (substring.split('').every(ele => ['a', 'e', 'i', 'o', 'u'].includes(ele))) {
-       vowelsSubstring.push(substring);
-     }
-    }
+class Player {
+  static rollDice() {
+    return Math.floor((Math.random() * 11) + 2);
+  }
+  constructor(name) {
+    this.name = name;
+    this.health = 100;
+    this.strength = Player.rollDice();
+    this.intel = Player.rollDice();
   }
   
-  return vowelsSubstring.sort((a, b) => b.length - a.length)[0].length;
+  heal(amount) {
+    this.health = this.health + amount;
+  }
   
+  hurt(amount) {
+    this.health = this.health - amount;
+  }
 }
 
-/* using ^aeiou to split 
-function solve(str) {
-  let strArray = str.split(/[^aeiou]/);
-  return strArray.sort((a, b) => b.length - a.length)[0].length;
+
+class Warrior extends Player {
+  constructor(name) {
+    super(name);
+    this.strength = this.strength + 2;
+  }
 }
-*/
 
+class Magician extends Player {
+  constructor(name) {
+    super(name);
+    this.intel = this.intel + 2;
+  }
+}
 
-console.log(solve("suoidea"))// === 3);
-console.log(solve("ultrarevolutionariees"))// === 3);
-console.log(solve("strengthlessnesses"))// === 1);
-console.log(solve("cuboideonavicuare"))// === 2);
-console.log(solve("chrononhotonthuooaos"))// === 5);
-console.log(solve("codewarriors"))// === 2);
+class Paladins extends Player {
+  constructor(name) {
+    super(name);
+  }
+}
 
+class Bards extends Magician {
+  constructor(name) {
+    super(name);
+    this.intel = this.intel + 2;
+  }
+  
+  createPotion() {
+    console.log('creating portion');
+  }
+}
 
+let armorMethod = {
+ attachArmor() {
+   console.log('attaching armor');
+ },
+ 
+ removeArmor() {
+   console.log('removing armor');
+   }
+};
+
+let spellMethod = {
+  castSpell(spell) {
+    console.log(spell);
+  }
+};
+
+Object.assign(Warrior.prototype, armorMethod);
+Object.assign(Magician.prototype, spellMethod);
+Object.assign(Paladins.prototype, armorMethod, spellMethod);
+
+let warrior = new Warrior('marcus');
+let magician = new Magician('olivia');
+let bard = new Bards('zico');
+let paladin = new Paladins('zico');
+
+console.log(warrior.strength);
+console.log(warrior.health); // log 100
+warrior.heal(50)
+console.log(warrior.health); // log 150
+warrior.hurt(50);
+console.log(warrior.health); // log 100
+
+warrior.attachArmor();
+warrior.removeArmor();
+
+magician.castSpell('fire'); // log fire
+bard.castSpell('fire'); // log fire
+paladin.castSpell('fire'); // log fire
+//warrior.castSpell('fire');; // error -> correct
+
+bard.createPotion(); // log creating portion
